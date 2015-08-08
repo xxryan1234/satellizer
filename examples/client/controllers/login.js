@@ -1,41 +1,25 @@
 angular.module('MyApp')
-  .controller('LoginCtrl', function($scope, $alert, $auth) {
-    $scope.login = function() {
-      $auth.login({ email: $scope.email, password: $scope.password })
+  .controller('LoginCtrl', function($scope, $mdToast, $auth) {
+
+    // Sign in with email and password
+    $scope.handleLogin = function() {
+      $auth.login($scope.user)
         .then(function() {
-          $alert({
-            content: 'You have successfully logged in',
-            animation: 'fadeZoomFadeDown',
-            type: 'material',
-            duration: 3
-          });
+          $mdToast.showSimple('Successfully signed in');
         })
         .catch(function(response) {
-          $alert({
-            content: response.data.message,
-            animation: 'fadeZoomFadeDown',
-            type: 'material',
-            duration: 3
-          });
+          $mdToast.showSimple(response.data.message);
         });
     };
-    $scope.authenticate = function(provider) {
+
+    // Sign in with OAuth
+    $scope.handleOauth = function(provider) {
       $auth.authenticate(provider)
         .then(function() {
-          $alert({
-            content: 'You have successfully logged in',
-            animation: 'fadeZoomFadeDown',
-            type: 'material',
-            duration: 3
-          });
+          $mdToast.showSimple('Successfully signed in');
         })
         .catch(function(response) {
-          $alert({
-            content: response.data ? response.data.message : response,
-            animation: 'fadeZoomFadeDown',
-            type: 'material',
-            duration: 3
-          });
+          $mdToast.showSimple(response);
         });
     };
   });
