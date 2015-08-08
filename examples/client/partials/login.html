@@ -1,62 +1,49 @@
-<div class="container">
-  <div class="row">
-    <div class="center-form panel">
-      <div class="panel-body">
-        <h2 class="text-center">Log in</h2>
-        <form method="post" ng-submit="login()" name="loginForm">
-          <div class="form-group has-feedback">
-            <input class="form-control input-lg" type="text" name="email" ng-model="email" placeholder="Email" required autofocus>
-            <span class="ion-at form-control-feedback"></span>
-          </div>
+<md-content class="md-padding">
+  <div layout="row" layout-wrap>
+    <div flex>
+      <md-card>
+        <md-card-content>
+          <form ng-submit="handleLogin()" name="loginForm">
+            <md-input-container flex>
+              <label>Email</label>
+              <input ng-model="user.email" type="email">
+            </md-input-container>
+            <md-input-container flex>
+              <label>Password</label>
+              <input ng-model="user.password" type="password">
 
-          <div class="form-group has-feedback">
-            <input class="form-control input-lg" type="password" name="password" ng-model="password" placeholder="Password" required>
-            <span class="ion-key form-control-feedback"></span>
-          </div>
-
-          <button type="submit" ng-disabled="loginForm.$invalid" class="btn btn-lg  btn-block btn-success">Log in</button>
-
-          <br/>
-
-          <p class="text-center">
-            <a href="#">Forgot your password?</a>
-          </p>
-
-          <p class="text-center text-muted">
-            <small>Don't have an account yet? <a href="/#/signup">Sign up</a></small>
-          </p>
-
-          <div class="signup-or-separator">
-            <h6 class="text">or</h6>
-            <hr>
-          </div>
-        </form>
-
-        <button class="btn btn-block btn-facebook" ng-click="authenticate('facebook')">
-          <i class="ion-social-facebook"></i> Sign in with Facebook
-        </button>
-        <button class="btn btn-block btn-google-plus" ng-click="authenticate('google')">
-          <span class="ion-social-googleplus"></span>Sign in with Google
-        </button>
-        <button class="btn btn-block btn-linkedin" ng-click="authenticate('linkedin')">
-          <i class="ion-social-linkedin"></i> Sign in with LinkedIn
-        </button>
-        <button class="btn btn-block btn-twitter" ng-click="authenticate('twitter')">
-          <i class="ion-social-twitter"></i> Sign in with Twitter
-        </button>
-        <button class="btn btn-block btn-foursquare" ng-click="authenticate('foursquare')">
-          <i class="fa fa-foursquare"></i> Sign in with Foursquare
-        </button>
-        <button class="btn btn-block btn-github" ng-click="authenticate('github')">
-          <i class="ion-social-github"></i> Sign in with GitHub
-        </button>
-        <button class="btn btn-block btn-yahoo" ng-click="authenticate('yahoo')">
-          <i class="ion-social-yahoo"></i> Sign in with Yahoo
-        </button>
-        <button class="btn btn-block btn-live" ng-click="authenticate('live')">
-          <i class="ion-social-windows"></i> Sign in with Windows Live
-        </button>
-      </div>
+            </md-input-container>
+            <md-button class="md-raised md-primary">Log In</md-button>
+            <md-button href="/#/signup" class="">Sign Up</md-button>
+          </form>
+        </md-card-content>
+      </md-card>
     </div>
   </div>
-</div>
+  <div layout="row" layout-align="center" layout-wrap>
+    <md-button class="md-raised md-fab facebook" ng-click="handleOauth('facebook')" aria-label="Facebook">
+      <i class="ion-social-facebook"></i>
+    </md-button>
+    <md-button class="md-raised md-fab google" ng-click="handleOauth('google')" aria-label="Google">
+      <i class="ion-social-googleplus"></i>
+    </md-button>
+    <md-button class="md-raised md-fab linkedin" ng-click="handleOauth('linkedin')" aria-label="LinkedIn">
+      <i class="ion-social-linkedin"></i>
+    </md-button>
+    <md-button class="md-raised md-fab twitter" ng-click="handleOauth('twitter')" aria-label="Twitter">
+      <i class="ion-social-twitter"></i>
+    </md-button>
+    <md-button class="md-raised md-fab foursquare" ng-click="handleOauth('foursquare')" aria-label="Foursquare">
+      <i class="ion-social-foursquare-outline"></i>
+    </md-button>
+    <md-button class="md-raised md-fab github" ng-click="handleOauth('github')" aria-label="GitHub">
+      <i class="ion-social-github"></i>
+    </md-button>
+    <md-button class="md-raised md-fab yahoo" ng-click="handleOauth('yahoo')" aria-label="Yahoo">
+      <i class="ion-social-yahoo"></i>
+    </md-button>
+    <md-button class="md-raised md-fab microsoft" ng-click="handleOauth('live')" aria-label="Microsoft">
+      <i class="ion-social-windows"></i>
+    </md-button>
+  </div>
+</md-content>
