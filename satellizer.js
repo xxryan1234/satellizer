@@ -50,7 +50,7 @@
           redirectUri: (window.location.origin || window.location.protocol + '//' + window.location.host) + '/',
           scope: ['email'],
           scopeDelimiter: ',',
-          requiredUrlParams: ['display', 'scope'],
+          requiredUrlParams: ['nonce','display', 'scope'],
           display: 'popup',
           type: '2.0',
           popupOptions: { width: 580, height: 400 }
@@ -227,12 +227,12 @@
             return oauth.authenticate(name, false, userData);
           };
 
-          $auth.login = function(user, redirect) {
-            return local.login(user, redirect);
+          $auth.login = function(user, reqConfig, redirect) {
+            return local.login(user, reqConfig, redirect);
           };
 
-          $auth.signup = function(user) {
-            return local.signup(user);
+          $auth.signup = function(user, reqConfig) {
+            return local.signup(user, reqConfig);
           };
 
           $auth.logout = function(redirect) {
@@ -312,8 +312,8 @@
           }
 
           if (!token && response) {
-            var tokenRootData = config.tokenRoot && config.tokenRoot.split('.').reduce(function(o, x) { return o[x]; }, response.data);
-            token = tokenRootData ? tokenRootData[config.tokenName] : response.data[config.tokenName];
+            token = config.tokenRoot && response.data[config.tokenRoot] ?
+              response.data[config.tokenRoot][config.tokenName] : response.data[config.tokenName];
           }
 
           if (!token) {
@@ -420,18 +420,18 @@
       function($q, $http, $location, utils, shared, config) {
         var local = {};
 
-        local.login = function(user, redirect) {
+        local.login = function(user, reqConfig, redirect) {
           var loginUrl = config.baseUrl ? utils.joinUrl(config.baseUrl, config.loginUrl) : config.loginUrl;
-          return $http.post(loginUrl, user)
+          return $http.post(loginUrl, user, reqConfig)
             .then(function(response) {
               shared.setToken(response, redirect);
               return response;
             });
         };
 
-        local.signup = function(user) {
+        local.signup = function(user, reqConfig) {
           var signupUrl = config.baseUrl ? utils.joinUrl(config.baseUrl, config.signupUrl) : config.signupUrl;
-          return $http.post(signupUrl, user)
+          return $http.post(signupUrl, user, reqConfig)
             .then(function(response) {
               if (config.loginOnSignup) {
                 shared.setToken(response);
